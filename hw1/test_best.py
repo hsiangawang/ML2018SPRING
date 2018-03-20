@@ -6,7 +6,7 @@ import math as math
 
 #input_path = sys.argv[1]
 output_path = sys.argv[1]
-model_path = sys.argv[3]
+model_path = "model_best.csv"
 
 model = pd.read_csv(model_path , encoding='big5' , header = None).as_matrix()
 weight = model[ : ,1]
