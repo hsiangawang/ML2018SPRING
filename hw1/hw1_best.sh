@@ -1,1 +1,1 @@
-python3 test_best.py $1 $2 model_best.csv
+python3 test_best.py $1 $2 

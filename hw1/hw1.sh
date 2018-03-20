@@ -1,1 +1,1 @@
-python3 test.py $1 $2 model.csv
+python3 test.py $1 $2 
