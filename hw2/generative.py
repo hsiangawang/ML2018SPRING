@@ -11,7 +11,6 @@ def sigmoid(z):
   return np.clip(res,1e-8,1-(1e-8))
 
 def normalize(X_all, X_test):
-    # Feature normalization with train and test X
     X_train_test = np.concatenate((X_all, X_test))
     mu = (sum(X_train_test) / X_train_test.shape[0])
     sigma = np.std(X_train_test, axis=0)
@@ -19,7 +18,6 @@ def normalize(X_all, X_test):
     sigma = np.tile(sigma, (X_train_test.shape[0], 1))
     X_train_test_normed = (X_train_test - mu) / sigma
 
-    # Split to train, test again
     X_all = X_train_test_normed[0:X_all.shape[0]]
     X_test = X_train_test_normed[X_all.shape[0]:]
     return X_all, X_test
@@ -27,13 +25,7 @@ def normalize(X_all, X_test):
 
 
 def train(X_train, Y_train):
-    # Split a 10%-validation set from the training set
-    #valid_set_percentage = 0.1
-    #X_train, Y_train, X_valid, Y_valid = split_valid_set(X_all, Y_all, valid_set_percentage)
-    #print(X_train.shape)
-    #print(Y_train.shape)
     
-    # Gaussian distribution parameters
     train_data_size = X_train.shape[0]
     cnt1 = 0
     cnt2 = 0
@@ -80,12 +72,11 @@ def train(X_train, Y_train):
     f.close()
     return
 
-    # Load feature and label
+   
 X_all = pd.read_csv(sys.argv[3]).as_matrix().astype('float')
 Y_all = pd.read_csv(sys.argv[4],header=None).as_matrix().astype('float64')
 X_test = pd.read_csv(sys.argv[5]).as_matrix().astype('float')
-#X_all,Y_all,X_test = load_data(sys.argv[2],sys.argv[3],sys.argv[4])
-    # Normalization
+
 X_all, X_test = normalize(X_all, X_test)
 train(X_all,Y_all)
 

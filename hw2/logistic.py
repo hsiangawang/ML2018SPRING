@@ -31,7 +31,7 @@ def sel_feature(X):
 	captital_g_l = X[:,78:80]
 	fnlwgt = X[:,10:11]
 	feature = np.concatenate((age,index,hours,captital_g_l,fnlwgt),axis=1)
-	feature = normalize(feature)
+	#feature = normalize(feature)
 	#print(feature.shape)
 	#square = [0,1,3,4,5]
 	#cubic = [0,1,3,4,5]
@@ -43,6 +43,7 @@ def sel_feature(X):
 def logistic_regression(X,Y):
 	lr = 0.1
 	epoch = 3000
+	landa = 0.1
 
 	w = np.random.randn(X.shape[1],1)
 	ada_grad = np.zeros((X.shape[1],1))
@@ -51,11 +52,12 @@ def logistic_regression(X,Y):
 		diff = y_pred - Y
 		loss = -np.mean(Y*np.log(y_pred) + (1-Y)*np.log(1-y_pred))
 		grad = np.dot(X.T,diff)
+		grad += landa*w
 		ada_grad += grad**2
 		w -= lr*grad/np.sqrt(ada_grad)
 		acc = acc_count(y_pred,Y)
-		if i % 200 == 0:
-			print('epoch : %d | cost : %f | acc : %f' %(i,loss,acc))
+		#if i % 200 == 0:
+		#	print('epoch : %d | cost : %f | acc : %f' %(i,loss,acc))
 
 	#print(w.shape)
 			
