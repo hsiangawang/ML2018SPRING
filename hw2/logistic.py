@@ -43,7 +43,7 @@ def sel_feature(X):
 def logistic_regression(X,Y):
 	lr = 0.1
 	epoch = 3000
-	landa = 0.1
+	#landa = 0.1
 
 	w = np.random.randn(X.shape[1],1)
 	ada_grad = np.zeros((X.shape[1],1))
@@ -52,7 +52,7 @@ def logistic_regression(X,Y):
 		diff = y_pred - Y
 		loss = -np.mean(Y*np.log(y_pred) + (1-Y)*np.log(1-y_pred))
 		grad = np.dot(X.T,diff)
-		grad += landa*w
+		#grad += landa*w
 		ada_grad += grad**2
 		w -= lr*grad/np.sqrt(ada_grad)
 		acc = acc_count(y_pred,Y)
