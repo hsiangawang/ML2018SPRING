@@ -42,18 +42,18 @@ test_X = normalize(test_X)
 test_X = test_X.reshape(-1,48,48,1)
 
 
-print("load model ...")
+#print("load model ...")
 model = load_model("model_0.69545")
-print("prediting...")
+#print("prediting...")
 p = model.predict(test_X)
 
 print("predict over")
-print(p)
-print(p.shape)
+#print(p)
+#print(p.shape)
 
 pred_y = np.argmax(p,axis=1)
-print(pred_y)
-print(pred_y.shape)
+#print(pred_y)
+#print(pred_y.shape)
 
 pred_y = np.array(pred_y,dtype=np.float32)
 print(pred_y.shape)
