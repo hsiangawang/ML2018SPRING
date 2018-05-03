@@ -86,11 +86,11 @@ test_X = test_X.reshape(-1,48,48,1)
 
 estimators = []
 
-model1 = load_model("model_best.hdf5")
+model1 = load_model("model_1.hdf5")
 model2 = load_model("model_2.hdf5")
-#model3 = load_model("model_3.hdf5")
+model3 = load_model("model_3.hdf5")
 
-estimators = [model1 , model2 ]
+estimators = [model1 , model2 , model3]
 
 ensemble_model = ensemble(estimators , model_input)
 ensemble_model.save("modelEns.h5")
