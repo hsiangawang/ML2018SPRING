@@ -20,11 +20,7 @@ from itertools import islice
 import keras.backend.tensorflow_backend as K
 import tensorflow as tf
 
-from utils.util import DataManager
-
-
-
-os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 
 parser = argparse.ArgumentParser(description='Sentiment classification')
 parser.add_argument('--model')
@@ -282,19 +278,28 @@ def main():
             
     # prepare tokenizer
     print ('get Tokenizer...')
-    if args.load_model is not None:
+    if args.action == 'train':
+        if args.load_model is not None:
         # read exist tokenizer
-        print("read exist tokenizer")
-        dm.load_tokenizer(os.path.join(load_path,'token.pk'))
-    else:
+            print("read exist tokenizer")
+            #dm.load_tokenizer(os.path.join(load_path,'token.pk'))
+            dm.load_tokenizer('token.pk')
+        else:
         # create tokenizer on new data
-        print("create tokenizer on new data")
-        dm.tokenize(args.vocab_size)
-                            
-    if not os.path.isdir(save_path):
-        os.makedirs(save_path)
-    if not os.path.exists(os.path.join(save_path,'token.pk')):
-        dm.save_tokenizer(os.path.join(save_path,'token.pk')) 
+            print("create tokenizer on new data")
+            dm.tokenize(args.vocab_size)
+            dm.save_tokenizer('token.pk')
+    if args.action == 'test':
+        print("testing read exist tokenizer")
+        dm.load_tokenizer('token.pk')
+    if args.action == 'semi':
+        print("semi read exist tokenizer")
+        dm.load_tokenizer('token.pk')
+
+    #if not os.path.isdir(save_path):
+    #    os.makedirs(save_path)
+    #if not os.path.exists(os.path.join(save_path,'token.pk')):
+    #    dm.save_tokenizer(os.path.join(save_path,'token.pk')) 
 
     # convert to sequences
     dm.to_sequence(args.max_length)
@@ -308,7 +313,8 @@ def main():
     if args.load_model is not None:
         if args.action == 'train':
             print ('Warning : load a exist model and keep training')
-        path = os.path.join(load_path,'model.h5')
+        #path = os.path.join(load_path,'model.h5')
+        path = 'model.h5'
         if os.path.exists(path):
             print ('load model from %s' % path)
             model.load_weights(path)
@@ -316,7 +322,8 @@ def main():
             raise ValueError("Can't find the file %s" %path)
     elif args.action == 'test':
         print ('load model for testing')
-        path = os.path.join(load_path,'model.h5')
+        #path = os.path.join(load_path,'model.h5')
+        path = 'model.h5'
         if os.path.exists(path):
             print ('load model from %s' % path)
             model.load_weights(path)
@@ -329,7 +336,8 @@ def main():
         (X,Y),(X_val,Y_val) = dm.split_data('train_data', args.val_ratio)
         earlystopping = EarlyStopping(monitor='val_acc', patience = 5, verbose=1, mode='max')
 
-        save_path = os.path.join(save_path,'model.h5')
+        #save_path = os.path.join(save_path,'model.h5')
+        save_path = 'model.h5'
         checkpoint = ModelCheckpoint(filepath=save_path, 
                                      verbose=1,
                                      save_best_only=True,
@@ -376,7 +384,8 @@ def main():
         [semi_all_X] = dm.get_data('semi_data')
         earlystopping = EarlyStopping(monitor='val_acc', patience = 5, verbose=1, mode='max')
 
-        save_path = os.path.join(save_path,'model.h5') ##!!!!
+        #save_path = os.path.join(save_path,'model.h5') ##!!!!
+        save_path = 'model.h5'
         checkpoint = ModelCheckpoint(filepath=save_path, 
                                      verbose=1,
                                      save_best_only=True,
