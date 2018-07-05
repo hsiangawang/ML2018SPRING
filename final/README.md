@@ -7,8 +7,8 @@ tensorflow-gpu==1.4.0 <br />
 tensorflow-tensorboard==0.4.0 <br />
 xgboost ==0.72 <br />
 
-data＆model 因為檔案太大所以透過另外下載
-data & model指令：bash data.sh
+data＆model 因為檔案太大所以透過另外下載 <br />
+data & model指令：bash data.sh <br />
 test指令： bash test.sh $1  <br />
 ($1 為predict.csv所存的位置，如 ./predict.csv) <br />
 training指令： bash train.sh <br />
