@@ -3,6 +3,7 @@ python==3.5.2 <br />
 keras==2.1.0 <br />
 numpy==1.14.2 <br />
 scikit-learn==0.19.1 <br />
+scipy==0.19.0 <br />
 tensorflow-gpu==1.4.0 <br />
 tensorflow-tensorboard==0.4.0 <br />
 xgboost ==0.72 <br />
