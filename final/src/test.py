@@ -1,4 +1,4 @@
-import csv
+import csv,sys
 import numpy as np
 from keras.models import Sequential
 from keras.models import Model
@@ -18,7 +18,7 @@ dict = ['Acoustic_guitar', 'Applause', 'Bark', 'Bass_drum', 'Burping_or_eructati
 		'Telephone', 'Trumpet', 'Writing', 'Violin_or_fiddle']
 
 print('read sample submission.csv')
-with open('sample_submission.csv','r') as f:
+with open('./data/sample_submission.csv','r') as f:
 	n_row = 0
 	filename = []
 	for row in f:
@@ -28,10 +28,10 @@ with open('sample_submission.csv','r') as f:
 		n_row += 1
 
 print('read x_test.npy')
-x_test = np.load('x_test_log10.npy')
+x_test = np.load('./data/x_test_log10.npy')
 
 print('load model')
-model = load_model('model/final_model.h5')
+model = load_model('./model/final_model.h5')
 print(model.summary())
 
 print('predict')
@@ -55,7 +55,7 @@ for i in range(len(x_test)):
 
 
 
-predict_csv = open('predict.csv', "w+")
+predict_csv = open(sys.argv[1], "w+")
 s = csv.writer(predict_csv,delimiter=',',lineterminator='\n')
 s.writerow(["fname","label"])
 for i in range(len(ans)):
