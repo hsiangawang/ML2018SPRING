@@ -1,2 +1,2 @@
-python3 ./src/train_noise.py train
-python3 ./src/train_noise.py semi
+python3 ./src/train.py train
+python3 ./src/train.py semi

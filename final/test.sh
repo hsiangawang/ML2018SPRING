@@ -1,1 +1,1 @@
-python3 ./src/test.py 
+python3 ./src/test.py $1
